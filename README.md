@@ -116,6 +116,8 @@ def show(self):
 
 ## main.pyでの記述
 
+### servo.pyをインポート
+
 
 
 
