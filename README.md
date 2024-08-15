@@ -120,7 +120,44 @@ def show(self):
 
 [最初なにから始めるを参照](https://github.com/mase114/Pico_Library?tab=readme-ov-file#最初なにから始める)
 
+### サーボピンの設定
 
+```python
+#サーボの数に応じてpin設定を変える
+servo_pwm_pin = [
+    PWM(Pin(n)),
+    PWM(Pin(n))
+]
+```
 
+`servo_pwm_pin`リストは、各サーボに対応するPWMピンのリストを作成します。
 
+### Servoクラスのインスタンス作成
 
+```python
+servo = Servo(servo_pwm_pin)
+```
+
+`Servo`クラスのインスタンスを作成し、先ほど設定したサーボピンのリスト`servo_pwm_pin`を渡しています。これにより、`servo`オブジェクトは、複数のサーボモーターを管理・制御することが可能になります。
+
+### サーボの初期位置設定
+
+```python
+servo.set_init(servo.servo_pin(n), angle_init)
+utime.sleep_ms(1000)
+```
+
+`set_init`メソッドを使って、各サーボの初期角度を設定しています。
+
+`servo.servo_pin(n)`は、リスト`servo_pwm_pin`の最初のピン`PWM(Pin(n))`に対応します。このサーボの初期角度を`angle_init`で設定します。
+
+`utime.sleep_ms(1000)`で1秒（1000ミリ秒）間待機し、サーボモーターが初期位置に移動する時間を確保します。
+
+### サーボの動作設定
+
+```python
+servo.set_angle(servo.servo_pin(n),30,20)
+servo.set_angle([servo.servo_pin(n),servo.servo_pin(n)],[60,120],20)
+```
+
+`servo_pin(n)`（サーボ単体）を`30`度に設定します。`speed`引数が`20`なので、`20`ミリ秒ごとにサーボを少しずつ動かして目標角度に到達させます。
