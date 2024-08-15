@@ -12,8 +12,8 @@ servo.pyを利用するには、main.pyにimportする必要があリます。
 
 pico上にmain.pyとservo.pyを保存します。
 
-'''python
+```python
 from servo import Servo
-,,,
+```
 
-
+##関数の説明
