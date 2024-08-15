@@ -48,3 +48,6 @@ class Servo:
                 pins.duty_u16(int((angle_i * 9.5 / 180 + 2.5) * 65535 / 100))
                 utime.sleep_ms(speed)
             self.angles[index] = angles  # 角度をリストに保存
+
+    def show(self):
+        pass
