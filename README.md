@@ -118,7 +118,7 @@ def show(self):
 
 ### servo.pyをインポート
 
-
+[最初なにから始めるを参照](https://github.com/mase114/Pico_Library?tab=readme-ov-file#最初なにから始める)
 
 
 
