@@ -2,7 +2,7 @@
 
 ## servo.pyとはなに？
 
-サーボモーター用のライブラリであり、PWMを用いたサーボモーターの角度と速度の制御が可能になります。
+サーボモーター用のライブラリであり、`PWM`を用いたサーボモーターの角度と速度の制御が可能になります。
 
 ## 最初なにから始める？
 
@@ -26,13 +26,13 @@ def __init__(self,servo_pins):
 
 ### 引数
 
-`servo_pins`サーボモーターを制御するためのPWMピンのリストを受け取ります。
+`servo_pins`サーボモーターを制御するための`PWM`ピンのリストを受け取ります。
 
 ### 役割
 
 `self.servo_pins`インスタンス変数として受け取ったサーボピンのリストを保持します。
 
-`self.angles`サーボごとの現在の角度を保持するリストを、すべて0で初期化します。
+`self.angles`サーボごとの現在の角度を保持するリストを、すべて`0`で初期化します。
 
 ```python
 def servo_pin(self,index):
@@ -76,7 +76,7 @@ def set_init(self,pin,angle_init):
 
 ### 役割
 
-`pin.freq(50)`サーボモーターの周波数を50Hzに設定します。
+`pin.freq(50)`サーボモーターの周波数を`50`Hzに設定します。
 
 `pin.duty_u16(int((angle_init * 9.5 / 180 + 2.5) * 65535 / 100))`指定された角度に基づいてサーボを制御するデューティサイクルを設定します。
 
@@ -112,7 +112,7 @@ def set_angle(self,pins,angles,speed):
 def show(self):
 ```
 
-この関数はサーボモーターのピン情報などを表示するためのものです。将来的にデバッグなどで役立つ関数になります。
+この関数はサーボモーターのピン情報や角度などを出力するためのものです。将来的にデバッグなどで役立つ関数になります。
 
 ## main.pyでの記述
 
@@ -130,7 +130,7 @@ servo_pwm_pin = [
 ]
 ```
 
-`servo_pwm_pin`リストは、各サーボに対応するPWMピンのリストを作成します。
+`servo_pwm_pin`リストは、各サーボに対応する`PWM`ピンのリストを作成します。
 
 ### Servoクラスのインスタンス作成
 
@@ -151,13 +151,51 @@ utime.sleep_ms(1000)
 
 `servo.servo_pin(n)`は、リスト`servo_pwm_pin`の最初のピン`PWM(Pin(n))`に対応します。このサーボの初期角度を`angle_init`で設定します。
 
-`utime.sleep_ms(1000)`で1秒（1000ミリ秒）間待機し、サーボモーターが初期位置に移動する時間を確保します。
+`utime.sleep_ms(1000)`で`1`秒（`1000`ミリ秒）間待機し、サーボモーターが初期位置に移動する時間を確保します。
 
 ### サーボの動作設定
 
 ```python
-servo.set_angle(servo.servo_pin(n),30,20)
-servo.set_angle([servo.servo_pin(n),servo.servo_pin(n)],[60,120],20)
+servo.set_angle(servo.servo_pin(n),angles,speed)
+servo.set_angle([servo.servo_pin(n),servo.servo_pin(n)],[angles,angles],speed)
 ```
 
-`servo_pin(n)`（サーボ単体）を`30`度に設定します。`speed`引数が`20`なので、`20`ミリ秒ごとにサーボを少しずつ動かして目標角度に到達させます。
+`1`つのサーボ`servo_pin(n)`の角度を`angles`で設定します。`speed`でミリ秒ごとにサーボを少しずつ動かして目標角度に到達さる時間を設定。
+
+`2`つのサーボ`servo_pin(n),servo_pin(n)`を同時に動かします。それぞれの`angles`で角度を設定します。これも`speed`で速度をミリ秒ごとに設定します。
+
+### ピン情報や角度の出力
+
+```python
+#未実装の為、仮とする
+servo.show()
+```
+
+将来的にサーボごとの角度を出力することができるようにする。
+
+## サンプルmain.pyコード
+
+```python
+from machine import Pin, PWM
+import utime
+# servo.pyをimport
+from servo import Servo
+
+# サーボピンの設定
+servo_pwm_pin = [
+    PWM(Pin(0)),
+    PWM(Pin(1))
+]
+
+# Servoクラスのインスタンス作成
+servo = Servo(servo_pwm_pin)
+
+# サーボの初期位置設定
+servo.set_init(servo.servo_pin(0), 60)
+servo.set_init(servo.servo_pin(1), 140)
+utime.sleep_ms(1000)
+
+# サーボを同時に動かす
+servo.set_angle(servo.servo_pin(0), 30, 20)
+servo.set_angle([servo.servo_pin(0),servo.servo_pin(1)], [60,120], 20)
+```
