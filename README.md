@@ -16,4 +16,5 @@ pico上にmain.pyとservo.pyを保存します。
 from servo import Servo
 ```
 
-##関数の説明
+## 関数の説明
+
