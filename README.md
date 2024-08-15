@@ -6,11 +6,11 @@
 
 ## 最初なにから始める？
 
-servo.pyを利用するには、main.pyにimportする必要があリます。
+`servo.py`を利用するには、`main.py`に`import`する必要があリます。
 
-使用するマイコンはraspberry pi picoを使用します。
+使用するマイコンは`raspberry pi pico`を使用します。
 
-pico上にmain.pyとservo.pyを保存します。
+pico上に`main.py`と`servo.py`を保存します。
 
 ```python
 from servo import Servo
@@ -18,3 +18,8 @@ from servo import Servo
 
 ## 関数の説明
 
+```python
+def __init__(self,servo_pins):
+```
+
+これはクラスのコンストラクタです。`Servo`クラスのインスタンスが作成されたときに自動的に呼び出されます。
