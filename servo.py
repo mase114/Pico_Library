@@ -6,8 +6,8 @@ class Servo:
         self.servo_pins = servo_pins
         self.angles = [0] * len(servo_pins)  # 各サーボの角度を保持するリスト
 
-    # ピンを取得
-    def servo_pin(self,index):
+    # サーボ番号
+    def servo_num(self,index):
         return self.servo_pins[index]
     
     # 角度取得
