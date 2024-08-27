@@ -35,7 +35,7 @@ def __init__(self,servo_pins):
 `self.angles`サーボごとの現在の角度を保持するリストを、すべて`0`で初期化します。
 
 ```python
-def servo_pin(self,index):
+def servo_num(self,index):
 ```
 
 指定されたインデックスのサーボピンを返す関数です。
@@ -143,26 +143,26 @@ servo = Servo(servo_pwm_pin)
 ### サーボの初期位置設定
 
 ```python
-servo.set_init(servo.servo_pin(n), angle_init)
+servo.set_init(servo.servo_num(n), angle_init)
 utime.sleep_ms(1000)
 ```
 
 `set_init`メソッドを使って、各サーボの初期角度を設定しています。
 
-`servo.servo_pin(n)`は、リスト`servo_pwm_pin`の最初のピン`PWM(Pin(n))`に対応します。このサーボの初期角度を`angle_init`で設定します。
+`servo.servo_num(n)`は、リスト`servo_pwm_pin`の最初のピン`PWM(Pin(n))`に対応します。このサーボの初期角度を`angle_init`で設定します。
 
 `utime.sleep_ms(1000)`で`1`秒（`1000`ミリ秒）間待機し、サーボモーターが初期位置に移動する時間を確保します。
 
 ### サーボの動作設定
 
 ```python
-servo.set_angle(servo.servo_pin(n),angles,speed)
-servo.set_angle([servo.servo_pin(n),servo.servo_pin(n)],[angles,angles],speed)
+servo.set_angle(servo.servo_num(n),angles,speed)
+servo.set_angle([servo.servo_num(n),servo.servo_num(n)],[angles,angles],speed)
 ```
 
-`1`つのサーボ`servo_pin(n)`の角度を`angles`で設定します。`speed`でミリ秒ごとにサーボを少しずつ動かして目標角度に到達さる時間を設定。
+`1`つのサーボ`servo_num(n)`の角度を`angles`で設定します。`speed`でミリ秒ごとにサーボを少しずつ動かして目標角度に到達さる時間を設定。
 
-`2`つのサーボ`servo_pin(n),servo_pin(n)`を同時に動かします。それぞれの`angles`で角度を設定します。これも`speed`で速度をミリ秒ごとに設定します。
+`2`つのサーボ`servo_num(n),servo_num(n)`を同時に動かします。それぞれの`angles`で角度を設定します。これも`speed`で速度をミリ秒ごとに設定します。
 
 ### ピン情報や角度の出力
 
@@ -191,11 +191,11 @@ servo_pwm_pin = [
 servo = Servo(servo_pwm_pin)
 
 # サーボの初期位置設定
-servo.set_init(servo.servo_pin(0), 60)
-servo.set_init(servo.servo_pin(1), 140)
+servo.set_init(servo.servo_num(0), 60)
+servo.set_init(servo.servo_num(1), 140)
 utime.sleep_ms(1000)
 
 # サーボを同時に動かす
-servo.set_angle(servo.servo_pin(0), 30, 20)
-servo.set_angle([servo.servo_pin(0),servo.servo_pin(1)], [60,120], 20)
+servo.set_angle(servo.servo_num(0), 30, 20)
+servo.set_angle([servo.servo_num(0),servo.servo_num(1)], [60,120], 20)
 ```
